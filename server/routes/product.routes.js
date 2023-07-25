@@ -3,7 +3,7 @@ const router = express.Router();
 
 const ProductController = require('../controllers/http/product.controller.http');
 
-router.get('/products/:videoId', (req, res) => {
+router.get('/videos/:videoId/products', (req, res) => {
     ProductController.getAllProductLists(req, res);
 });
 
