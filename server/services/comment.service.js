@@ -7,6 +7,11 @@ class CommentService {
     static async getAllComments(videoId, sort_by = 'createdAt', order = 'desc') {
         try {
             const video = await Video.findById(videoId);
+            
+            if (!video) {
+                return {idError: "Video not found"};
+            }
+
             let comments = video.comments;
             if (sort_by === 'createdAt') {
                 comments = comments.sort((a, b) => {
@@ -19,32 +24,57 @@ class CommentService {
             } 
             return comments
         } catch (error) {
-            return error;
+            if (error.name === 'CastError') {
+                throw new Error("Invalid video ID format")
+            } else {
+                throw error;
+            }
         }
     }
 
     static async getCommentById(videoId, commentId) {
         try {
             const video = await Video.findById(videoId);
+            
+            if (!video) {
+                return {idError: "Video not found"};
+            }
+
             const comment = video.comments.find(
                 comment => comment._id.toString() === commentId);
+
+            if (!comment) {
+                return ({idError: "Comment not found"});
+            }
             return comment;
         } catch (error) {
-            return error;
+            if (error.name === 'CastError') {
+                throw new Error("Invalid video ID format")
+            } else {
+                throw error;
+            }
         }
     }
 
     static async addComment(videoId, postedBy, text) {
         try {
+            const video = await Video.findById(videoId);
+            if (!video) {
+                return {idError: "Video not found"};
+            }
+            
             const newComment = await Video.findOneAndUpdate(
                 { _id: videoId },
                 { $push: { comments: { postedBy, text } } },
                 { new: true, useFindAndModify: false, select: 'comments' }
             ).then(video => video.comments[video.comments.length - 1]);
-            console.log(newComment)
             return newComment;
         } catch (error) {
-            return error;
+            if (error.name === 'CastError') {
+                throw new Error("Invalid video ID format")
+            } else {
+                throw error;
+            }
         }
     }
 

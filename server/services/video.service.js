@@ -20,7 +20,7 @@ class VideoService {
             const videos = await videosQuery.exec();
             return videos;
         } catch (error) {
-            return error;
+            throw error;
         }
     }
 
@@ -29,13 +29,16 @@ class VideoService {
             const thumbnailList = await Video.find({}, '_id imgUrl title uploader');
             return thumbnailList;
         } catch (error) {
-            return error;
+            throw error;
         }
     }
 
     static async getVideoById(videoId, includeProducts = false, includeComments = false) {
         try {
             let videoQuery = Video.findById(videoId);
+
+            
+
             if (includeProducts) {
                 videoQuery = videoQuery.populate('products');
             }
@@ -49,18 +52,33 @@ class VideoService {
             }
             
             const video = await videoQuery.exec();
+
+            if (!video) {
+                return {idError: "Video not found"};
+            }
             return video;
         } catch (error) {
-            return error;
+            if (error.name === 'CastError') {
+                throw new Error("Invalid video ID format")
+            } else {
+                throw error;
+            }
         }
     }
 
     static async getVideoThumbnailById(id) {
         try {
             const thumbnail = await Video.findById(id, '_id imgUrl title uploader');
+            if (!thumbnail) {
+                return {idError: "Video not found"};
+            }
             return thumbnail;
         } catch (error) {
-            return error;
+            if (error.name === 'CastError') {
+                throw new Error("Invalid video ID format")
+            } else {
+                throw error;
+            }
         }
     }
 

@@ -1,14 +1,30 @@
 const CommentService = require('../../services/comment.service');
 
-//TODO: Fixing JSON response content, fixing error handling message
 class CommentController {
     static async getAllComments(req, res) {
         try {
             const videoId = req.params.videoId;
             const comments = await CommentService.getAllComments(videoId);
-            res.status(200).json(comments);
+            if (comments.idError) {
+                res.status(404).json(
+                    {
+                        status: 'error',
+                        message: comments.idError
+                    }
+                )
+            } else {
+                res.status(200).json({
+                    status: 'success',
+                    data: comments
+                });
+            }
         } catch (error) {
-            res.status(500).json(error);
+            res.status(500).json(
+                {
+                    status: 'error',
+                    message: error.message
+                }
+            );
         }
     }
 
@@ -17,9 +33,26 @@ class CommentController {
             const videoId = req.params.videoId;
             const commentId = req.params.commentId;
             const comment = await CommentService.getCommentById(videoId, commentId);
-            res.status(200).json(comment);
+            if (comment.idError) {
+                res.status(404).json(
+                    {
+                        status: 'error',
+                        message: comment.idError
+                    }
+                )
+            } else {
+                res.status(200).json({
+                    status: 'success',
+                    data: comment
+                });
+            }
         } catch (error) {
-            res.status(500).json(error);
+            res.status(500).json(
+                {
+                    status: 'error',
+                    message: error.message
+                }
+            );
         }
     }
 
@@ -28,9 +61,26 @@ class CommentController {
             const videoId = req.params.videoId;
             const { postedBy, text } = req.body;
             const newComment = await CommentService.addComment(videoId, postedBy, text);
-            res.status(200).json(newComment);
+            if (newComment.idError) {
+                res.status(404).json(
+                    {
+                        status: 'error',
+                        message: newComment.idError
+                    }
+                )
+            } else {
+                res.status(200).json({
+                    status: 'success',
+                    data: newComment
+                });
+            }
         } catch (error) {
-            res.status(500).json(error);
+            res.status(500).json(
+                {
+                    status: 'error',
+                    message: error.message
+                }
+            );
         }
     }
 
