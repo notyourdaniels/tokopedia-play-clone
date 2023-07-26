@@ -1,90 +1,73 @@
 # Tokopedia Play Clone
 
-A clone for Tokopedia Play Application for Generasi GIGIH 3.0.
+This repository contains a backend server implementation for a video platform, inspired by Tokopedia Play for Generasi GIGIH 3.0. It allows users to interact with videos, comments, and products associated with the videos.
 
-## Routes Guide
+## Database Structure
 
-### Video Routes
+The application uses MongoDB as the database to store the data. There are two main collections: `videos` and `products`.
 
-1. **GET /videos**
+### Video Collection
 
-   Description: Fetch all videos with optional inclusion of products and comments.
+The `videos` collection stores video-related information. The schema for the `videos` collection is as follows:
 
-   Query Parameters:
-   - `includeProducts` (optional): Set to `true` to include associated products with each video.
-   - `includeComments` (optional): Set to `true` to include associated comments with each video.
+```javascript
+{
+    imgUrl: String,     // Image Thumbnail URL for the video
+    videoUrl: String,   // Video URL
+    title: String,      // Title of the video
+    uploader: String,   // Uploader of the video
+    products: [         // Array of ObjectIds referencing products associated with the video
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'products'
+        }
+    ],
+    comments: [         // Array of comments associated with the video
+        {
+            postedBy: String,   // Username of the commenter
+            timestamp: Date,    // Timestamp of the comment
+            text: String        // Content of the comment
+        }
+    ]
+}
+```
 
-   Controller: `VideoController.getAllVideos`
+### Product Collection
 
-2. **GET /videos/thumbnails**
+The `products` collection stores product-related information. The schema for the `products` collection is as follows:
 
-   Description: Fetch a list of video thumbnails with limited details (excluding products and comments).
+```javascript
+{
+    productLink: String,   // Image Thumbnail URL for the product
+    title: String,         // Title of the product
+    price: Number          // Price of the product
+}
+```
 
-   Controller: `VideoController.getAllVideosThumbnail`
+## API Structure
 
-3. **GET /videos/:videoId**
+The API follows RESTful principles for handling different entities: videos, comments, and products. The base URL for the API is `/api/v1`.
 
-   Description: Fetch a specific video by its ID with optional inclusion of products and comments.
+### API Endpoints
 
-   Parameters:
-   - `videoId` (URL parameter): The ID of the video to fetch.
+1. Videos:
 
-   Query Parameters:
-   - `includeProducts` (optional): Set to `true` to include associated products with the video.
-   - `includeComments` (optional): Set to `true` to include associated comments with the video.
+   - `GET /api/v1/videos`: Get a list of all videos.
+   - `GET /api/v1/videos/thumbnails`: Get a list of video thumbnails (with limited information).
+   - `GET /api/v1/videos/:videoId`: Get details of a specific video by its ID.
+   - `GET /api/v1/videos/:videoId/thumbnail`: Get thumbnail details of a specific video by its ID.
 
-   Controller: `VideoController.getVideoById`
+2. Comments:
 
-4. **GET /videos/:videoId/thumbnail**
+   - `GET /api/v1/videos/:videoId/comments`: Get all comments associated with a specific video.
+   - `GET /api/v1/videos/:videoId/comments/:commentId`: Get details of a specific comment by its ID.
+   - `POST /api/v1/videos/:videoId/comments`: Add a new comment to a specific video.
 
-   Description: Fetch the thumbnail details of a specific video by its ID (excluding products and comments).
+3. Products:
 
-   Parameters:
-   - `videoId` (URL parameter): The ID of the video to fetch.
+   - `GET /api/v1/videos/:videoId/products`: Get all products associated with a specific video.
 
-   Controller: `VideoController.getVideoThumbnailById`
+## API Request and Response
 
-### Product Routes
-
-1. **GET /products/:videoId**
-
-   Description: Fetch all products from Video ID.
-
-   Parameters:
-   - `videoId` (URL parameter): The ID of the video to fetch product for.
-
-   Controller: `ProductController.getAllProductLists`
-
-### Comment Routes
-
-1. **GET /videos/:videoId/comments**
-
-   Description: Fetch all comments for a specific video.
-
-   Parameters:
-   - `videoId` (URL parameter): The ID of the video to fetch comments for.
-
-   Controller: `CommentController.getAllComments`
-
-2. **GET /videos/:videoId/comments/:commentId**
-
-   Description: Fetch a specific comment for a specific video.
-
-   Parameters:
-   - `videoId` (URL parameter): The ID of the video that contains the comment.
-   - `commentId` (URL parameter): The ID of the comment to fetch.
-
-   Controller: `CommentController.getCommentById`
-
-3. **POST /videos/:videoId/comments**
-
-   Description: Add a new comment to a specific video.
-
-   Parameters:
-   - `videoId` (URL parameter): The ID of the video to add the comment to.
-
-   Request Body:
-   - `name`: The name of the commenter.
-   - `comment`: The text of the comment.
-
-   Controller: `CommentController.addComment`
+For a detailed API request and response documentation, please refer to the [following Gists](https://gist.github.com/notyourdaniels/07102caaf139414c663b95269a101f0b): 
+https://gist.github.com/notyourdaniels/07102caaf139414c663b95269a101f0b
