@@ -71,3 +71,64 @@ The API follows RESTful principles for handling different entities: videos, comm
 
 For a detailed API request and response documentation, please refer to the [following Gists](https://gist.github.com/notyourdaniels/07102caaf139414c663b95269a101f0b): 
 https://gist.github.com/notyourdaniels/07102caaf139414c663b95269a101f0b
+
+# How to Run Tokopedia Play Clone App
+
+To run the Tokopedia Play Clone app on another machine, follow these steps:
+
+## Prerequisites
+
+Before proceeding, ensure that you have the following installed on your machine:
+
+1. Node.js (https://nodejs.org/en/download/)
+2. MongoDB (https://docs.mongodb.com/manual/installation/)
+3. MongoDB Database Tools (https://www.mongodb.com/try/download/database-tools)
+
+## Clone the Repository
+
+1. Clone this repository to your local machine.
+2. Navigate to the project root directory.
+
+## Install Dependencies
+
+1. Open a terminal or command prompt.
+2. Change directory to the project root folder.
+3. Run the following command to install the required dependencies:
+
+   ```bash
+   npm install
+   ```
+
+## Restore the Database
+
+1. Navigate to the "db-backup/tokopedia-play-clone/" folder in the project directory.
+2. Restore the MongoDB database using the MongoDB `mongorestore` command. Replace `<path_to_mongorestore>` with the path to the `mongorestore` executable on your system.
+
+   ```bash
+   mongorestore --db tokopedia-play-clone <path_to_mongorestore>
+   ```
+
+## Configure the App
+
+1. Go to the `config` folder and check the `config.json` file. Make sure the MongoDB connection settings are correct, such as `MONGO_HOST`, `MONGO_PORT`, and `MONGO_DB`.
+   
+   ```json
+   {
+      "PORT": 3000, //Default port for this app
+      "MONGO_HOST": "127.0.0.1", //Your mongodb host location
+      "MONGO_PORT": 27017, //Your mongodb port location
+      "MONGO_DB": "tokopedia-play-clone" //Your mongodb database name
+   }
+   ```
+
+## Start the App
+
+1. In the terminal or command prompt, navigate to the project root folder.
+2. Start the app using the following command:
+
+   ```bash
+   npm start
+   ```
+
+   The app should now be running on the specified port (default is 3000).
+
