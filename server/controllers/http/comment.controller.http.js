@@ -59,6 +59,18 @@ class CommentController {
     static async addComment(req, res) {
         try {
             const videoId = req.params.videoId;
+            
+            if (Array.isArray(req.body)) {
+                throw Error("1 comment only");
+            }
+
+            const keys = Object.keys(req.body);
+            const allowedKeys = ['postedBy', 'text'];
+
+            if (keys.length !== allowedKeys.length || !keys.every(key => allowedKeys.includes(key))) {
+                throw Error("Invalid comment format");
+            }
+
             const { postedBy, text } = req.body;
             const newComment = await CommentService.addComment(videoId, postedBy, text);
             if (newComment.idError) {
