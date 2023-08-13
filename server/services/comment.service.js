@@ -15,10 +15,12 @@ class CommentService {
             let comments = video.comments;
             if (sort_by === 'createdAt') {
                 comments = comments.sort((a, b) => {
+                    const timestampA = new Date(a.timestamp);
+                    const timestampB = new Date(b.timestamp);
                     if (order === 'asc') {
-                        return a.timestamp - b.timestamp;
+                        return timestampA - timestampB;
                     } else {
-                        return b.timestamp - a.timestamp;
+                        return timestampB - timestampA;
                     }
                 });
             } 

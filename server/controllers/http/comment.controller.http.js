@@ -1,10 +1,11 @@
 const CommentService = require('../../services/comment.service');
 
 class CommentController {
-    static async getAllComments(req, res) {
+    static async getAllComments(req, res, sort_by, order) {
         try {
             const videoId = req.params.videoId;
-            const comments = await CommentService.getAllComments(videoId);
+            const comments = await CommentService.getAllComments(videoId, sort_by, order);
+            
             if (comments.idError) {
                 res.status(404).json(
                     {

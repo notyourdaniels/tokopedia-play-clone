@@ -4,7 +4,8 @@ const router = express.Router();
 const CommentController = require('../controllers/http/comment.controller.http');
 
 router.get('/videos/:videoId/comments', (req, res) => {
-    CommentController.getAllComments(req, res)
+    const { sort_by, order } = req.query;
+    CommentController.getAllComments(req, res, sort_by, order)
 })
 
 router.get('/videos/:videoId/comments/:commentId', (req, res) => {
