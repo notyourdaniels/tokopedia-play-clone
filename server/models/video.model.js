@@ -26,7 +26,7 @@ const VideoSchema = new mongoose.Schema({
     },
     comments: [{
         postedBy: { type: String, trim: true, required: 'Username is required' },
-        timestamp: { type: Date, default: Date.now() },
+        timestamp: { type: Date, default: Date.now },
         text: String,
     }],
 });
