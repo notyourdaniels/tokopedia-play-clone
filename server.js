@@ -1,14 +1,16 @@
 const express = require('express');
 const http = require('http');
 const cors = require('cors');
-const config = require('./config');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
 app.use(cors());
 
 const server = http.createServer(app);
 
-const port = config().PORT || 3000;
+const port = process.env.PORT || 3000;
 
 const db = require('./server/utils/database.util');
 const commentRoutes = require('./server/routes/comment.routes');
