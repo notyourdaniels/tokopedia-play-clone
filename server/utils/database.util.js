@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const config = require('../../config');
 
-const mongoURI = `mongodb://${config().MONGO_HOST || localhost}:${config().MONGO_PORT || 27017}/${config().MONGO_DB}`;
+const mongoURI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/tokopedia-play-clone';
+
 
 mongoose.connect(mongoURI, { 
     useNewUrlParser: true, 
-    useUnifiedTopology: true,
+    useUnifiedTopology: true
 })
 
 //TODO: add error handling
