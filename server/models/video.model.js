@@ -21,6 +21,14 @@ const VideoSchema = new mongoose.Schema({
         trim: true,
         required: 'Uploader is required',
     },
+    productsCount: {
+        type: Number,
+        default: 0,
+    },
+    commentsCount: {
+        type: Number,
+        default: 0,
+    },
     products: {
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'products' }]
     },

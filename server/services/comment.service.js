@@ -67,7 +67,11 @@ class CommentService {
             
             const newComment = await Video.findOneAndUpdate(
                 { _id: videoId },
-                { $push: { comments: { postedBy, text } } },
+                { 
+                    $push: { comments: { postedBy, text } },
+                    $inc: { commentsCount: 1 }
+                },
+                
                 { new: true, useFindAndModify: false, select: 'comments' }
             ).then(video => video.comments[video.comments.length - 1]);
             return newComment;
