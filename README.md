@@ -110,15 +110,12 @@ Before proceeding, ensure that you have the following installed on your machine:
 
 ## Configure the App
 
-1. Go to the `config` folder and check the `config.json` file. Make sure the MongoDB connection settings are correct, such as `MONGO_HOST`, `MONGO_PORT`, and `MONGO_DB`.
+1. Create the `.env` file in the directory root of the folder. Make sure the port and mongodb connection are right, such as `PORT`, `WEB_PORT`, and `MONGO_URI`.
    
-   ```json
-   {
-      "PORT": 3000, //Default port for this app
-      "MONGO_HOST": "127.0.0.1", //Your mongodb host location
-      "MONGO_PORT": 27017, //Your mongodb port location
-      "MONGO_DB": "tokopedia-play-clone" //Your mongodb database name
-   }
+   ```shell
+      "PORT": YOURSERVERPORT
+      "WEB_PORT": YOURFRONTENDPORT
+      "MONGO_URI": YOURMONGODBURI
    ```
 
 ## Start the App
