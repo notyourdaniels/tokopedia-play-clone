@@ -2,6 +2,8 @@
 
 This repository contains a backend and frontend server implementation for a video platform, inspired by Tokopedia Play for Generasi GIGIH 3.0. It uses MERN Stack (MongoDB, Express, ReactJS, Node.JS) with socket.io for real-time comment fetching. The UI uses chakra UI library.
 
+[Website Link:](https://tokopedia-play-clone-395917.et.r.appspot.com/) https://tokopedia-play-clone-395917.et.r.appspot.com/
+
 ## Database Structure
 
 The application uses MongoDB as the database to store the data. There are two main collections: `videos` and `products`.
