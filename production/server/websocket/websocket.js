@@ -1,7 +1,7 @@
 const { Server } = require('socket.io');
 const CommentControllerWebsocket = require('../controllers/websocket/comment.controller.websocket');
 
-const wsPort = process.env.WEB_PORT || 3001;
+const wsPort = process.env.WEB_PORT || 80;
 
 class Websocket{
   static init(server) {

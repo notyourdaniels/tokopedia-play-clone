@@ -11,7 +11,7 @@ app.use(cors());
 
 const server = http.createServer(app);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 80;
 
 const db = require('./server/utils/database.util');
 const commentRoutes = require('./server/routes/comment.routes');
