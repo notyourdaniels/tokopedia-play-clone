@@ -1,6 +1,6 @@
 # Tokopedia Play Clone
 
-This repository contains a backend server implementation for a video platform, inspired by Tokopedia Play for Generasi GIGIH 3.0. It allows users to interact with videos, comments, and products associated with the videos.
+This repository contains a backend and frontend server implementation for a video platform, inspired by Tokopedia Play for Generasi GIGIH 3.0. It uses MERN Stack (MongoDB, Express, ReactJS, Node.JS) with socket.io for real-time comment fetching. The UI uses chakra UI library.
 
 ## Database Structure
 
@@ -72,7 +72,7 @@ The API follows RESTful principles for handling different entities: videos, comm
 For a detailed API request and response documentation, please refer to the [following Gists](https://gist.github.com/notyourdaniels/07102caaf139414c663b95269a101f0b): 
 https://gist.github.com/notyourdaniels/07102caaf139414c663b95269a101f0b
 
-# How to Run Tokopedia Play Clone App
+# How to Run Tokopedia Play Clone App (Production)
 
 To run the Tokopedia Play Clone app on another machine, follow these steps:
 
@@ -110,7 +110,7 @@ Before proceeding, ensure that you have the following installed on your machine:
 
 ## Configure the App
 
-1. Create the `.env` file in the directory root of the folder. Make sure the port and mongodb connection are right, such as `PORT`, `WEB_PORT`, and `MONGO_URI`.
+1. Create the `.env` file in the directory `production`. Make sure the port and mongodb connection are right, such as `PORT`, `WEB_PORT`, and `MONGO_URI` The default `PORT`and `WEB_PORT` is 80.
    
    ```shell
       "PORT": YOURSERVERPORT
@@ -120,12 +120,12 @@ Before proceeding, ensure that you have the following installed on your machine:
 
 ## Start the App
 
-1. In the terminal or command prompt, navigate to the project root folder.
+1. In the terminal or command prompt, navigate to directory of `production`.
 2. Start the app using the following command:
 
    ```bash
    npm start
    ```
 
-   The app should now be running on the specified port (default is 3000).
+   The app should now be running on the specified port (default is 80).
 
