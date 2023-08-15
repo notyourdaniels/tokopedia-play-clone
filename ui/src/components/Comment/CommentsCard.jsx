@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import CommentService from '../../services/CommentService';
 
+const PORT = 3000;
+
 import { 
     Card, 
     CardHeader, 
@@ -20,7 +22,7 @@ import {
 
 import Comment from './Comment'
 
-const socket = io.connect('http://localhost:3000');
+const socket = io.connect(`http://localhost/${PORT}`);
 
 function CommentsCard ({videoId, orderBy}) {
     const [comments, setComments] = useState([]); 
